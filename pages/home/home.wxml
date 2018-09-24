@@ -1,0 +1,76 @@
+<!--导航条-->
+<view class="navbar">
+  <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+</view>
+
+<!-- banner -->
+<!-- indicator-dots 是否显示面板指示点 -->
+<!-- autoplay 是否自动切换 -->
+<!-- interval 自动切换时间间隔 -->
+<!-- duration 滑动动画时长 -->
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" />
+    </swiper-item>
+  </block>
+</swiper>
+
+<!-- 分类导航 -->
+<!-- data-xxx，xxx就是你给home.js里提供的数据关键词，home.js通过获取xxx关键词来获取xxx里面的数据，回调数据的时候会用的到 -->
+<view class="navs">
+  <block wx:for-items="{{navItems}}" wx:key="name">
+    <view class="nav-item" catchtap="catchTapCategory" data-type="{{item.name}}" data-typeid="{{item.typeId}}">
+      <image src="{{item.imageurl}}" class="nav-image" />
+      <text>{{item.name}}</text>
+    </view>
+  </block>
+</view>
+
+<view class="separate"></view>
+
+<view class="cate-container">
+
+  <view class="category-title">
+    <text class="name">新品上架</text>
+    <view class="line_flag"></view>
+    <image class="head-img" src="{{newgoods_head_url}}"></image>
+  </view>
+  <view class="separate"></view>
+  <!-- scroll-x 允许横向滚动 -->
+  <!-- scroll-y 允许纵向滚动 -->
+  <!-- scroll-top 设置竖向滚动条位置 -->
+  <!-- scroll-left 设置横向滚动条位置 -->
+  <!-- bindscrolltoupper 滚动到顶部/左边，会触发 scrolltoupper 事件 -->
+  <!-- bindscrolltolower 滚动到底部/右边，会触发 scrolltolower 事件 -->
+  <!-- enable-back-to-top iOS点击顶部状态栏、安卓双击标题栏时，滚动条返回顶部，只支持竖向 -->
+  <!-- scroll-with-animation 在设置滚动条位置时使用动画过渡 -->
+  <scroll-view scroll-x="true">
+    <view class="goods">
+      <block wx:for-items="{{goodsItems}}" wx:key="name">
+        <view class="goods-item" catchtap="catchTapCategory" data-type="{{item.name}}" data-typeid="{{item.typeId}}">
+          <image src="{{item.imageurl}}" class="goods-image" />
+          <text>{{item.name}}</text>
+          <text>{{item.newprice}}</text>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>
+
+<view class="separate"></view>
+
+<scroll-view scroll-y="true">
+  <view class="recommends">
+    <view wx:for-items="{{recommends}}" wx:key="name">
+      <image src="{{item.imageurl}}" class="recommends-image" />
+      <text>{{item.name}}</text>
+      <p>{{item.newprice}}</p>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+  <view class="weui-loading"></view>
+  <view class="weui-loadmore__tips">正在加载</view>
+</view>
